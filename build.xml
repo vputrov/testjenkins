@@ -4,9 +4,10 @@
         <pathelement location="ant-contrib-1.0b3.jar"/>
       </classpath>
     </taskdef>
-    <target name="main" depends="initialize">
+    <target name="main">
         <echo>Kruto: ${kruto}</echo>
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
+        <echo>Aztoi: ${otstoi}</echo>
     </target>
 </project>
