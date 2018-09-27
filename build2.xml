@@ -15,7 +15,7 @@
         <property name="base.dir" location="." />
         <java dir=".." jar="../mavenproject1.jar" fork="true">
             <arg value="--path" />
-            <arg value="${base.dir}/sub/.git" />
+            <arg value="${base.dir}/.git" />
             <arg value="--id" />
             <arg value="C:\users\vsput\.ssh\id_rsa" />
             <arg value="--pass" />
