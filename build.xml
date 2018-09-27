@@ -5,15 +5,17 @@
       </classpath>
     </taskdef>
     <target name="main">
+        <loadfile property="message" srcFile="dududu.txt"/>
         <echo>Kruto: ${kruto}</echo>
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
         <echo>Aztoi: ${otstoi}</echo>
+        <echo>Aztoi: ${message}</echo>
         <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
             <arg value="C:\projects\test\jenkins\testjenkins\.git" />
             <arg value="--pass" />
-            <arg value="aniaBURUNDUK2015" />
+            <arg value="${message}" />
         </java>
     </target>
 </project>
