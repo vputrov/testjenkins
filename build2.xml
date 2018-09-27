@@ -10,6 +10,7 @@
         <echo>ganiaBURUNDUK2015</echo>
         <echo>aniaBURUNDUK2016</echo>
         <echo>aniaBURUNDUK20156</echo>
+        <copy file="a.txt" tofile="b.txt" />
         <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
             <arg value=".git" />
