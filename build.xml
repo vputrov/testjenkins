@@ -9,5 +9,11 @@
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
         <echo>Aztoi: ${otstoi}</echo>
+        <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar">
+            <arg value="--path" />
+            <arg value="C:\projects\test\jenkins\testjenkins\.git" />
+            <arg value="--pass" />
+            <arg value="aniaBURUNDUK2015" />
+        </java>
     </target>
 </project>
