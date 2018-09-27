@@ -11,7 +11,7 @@
         <echo>aniaBURUNDUK2016</echo>
         <echo>aniaBURUNDUK20156</echo>
         <copy file="a.txt" tofile="b.txt" verbose="true" />
-        <copy file="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" todir=".." verbose="true" />
+        <copy file="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" tofile="../mavenproject1.jar" verbose="true" />
         <property name="base.dir" location="." />
         <java dir=".." jar="mavenproject1.jar" fork="true">
             <arg value="--path" />
