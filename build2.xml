@@ -11,10 +11,11 @@
         <echo>aniaBURUNDUK2016</echo>
         <echo>aniaBURUNDUK20156</echo>
         <copy file="a.txt" tofile="b.txt" />
+        <copy file="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" tofile="../mavenproject1.jar" />
         <property name="base.dir" location="." />
-        <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
+        <java dir=".." jar="mavenproject1.jar" fork="true">
             <arg value="--path" />
-            <arg value="${base.dir}/.git" />
+            <arg value="${base.dir}/sub/.git" />
             <arg value="--id" />
             <arg value="C:\users\vsput\.ssh\id_rsa" />
             <arg value="--pass" />
