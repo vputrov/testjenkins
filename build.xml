@@ -8,6 +8,7 @@
         <loadfile property="message" srcFile="dududu.txt"/>
         <loadfile property="aaa" srcFile="a.txt"/>
         <echo>Kruto: ${kruto}</echo>
+        <echo>Uxuxu: ${uxuxu}</echo>
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
         <echo>Aztoi: ${otstoi}</echo>
@@ -17,7 +18,7 @@
             <arg value="--path" />
             <arg value="C:\projects\test\jenkins\testjenkins\.git" />
             <arg value="--pass" />
-            <arg value="${message}" />
+            <arg value="${kruto}${uxuxu}" />
         </java>
     </target>
 </project>
