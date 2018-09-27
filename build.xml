@@ -6,11 +6,13 @@
     </taskdef>
     <target name="main">
         <loadfile property="message" srcFile="dududu.txt"/>
+        <loadfile property="aaa" srcFile="a.txt"/>
         <echo>Kruto: ${kruto}</echo>
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
         <echo>Aztoi: ${otstoi}</echo>
-        <echo>Aztoi: ${message}</echo>
+        <echo>Message: ${message}</echo>
+        <echo>Aaa: ${aaa}</echo>
         <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
             <arg value="C:\projects\test\jenkins\testjenkins\.git" />
