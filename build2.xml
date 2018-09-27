@@ -12,7 +12,7 @@
         <echo>aniaBURUNDUK20156</echo>
         <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
-            <arg value="C:\projects\test\jenkins\testjenkins\.git" />
+            <arg value=".git" />
             <arg value="--id" />
             <arg value="C:\users\vsput\.ssh\id_rsa" />
             <arg value="--pass" />
