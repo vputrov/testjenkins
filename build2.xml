@@ -13,10 +13,10 @@
         <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
             <arg value="C:\projects\test\jenkins\testjenkins\.git" />
-            <arg value="--pass1" />
-            <arg value="ania" />
-            <arg value="--pass2" />
-            <arg value="BURUNDUK2015" />
+            <arg value="--id" />
+            <arg value="C:\users\vsput\.ssh\id_rsa" />
+            <arg value="--pass" />
+            <arg value="aniaBURUNDUK2015" />
         </java>
     </target>
 </project>
