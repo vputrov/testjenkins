@@ -9,7 +9,7 @@
         <echo>Super: ${super}</echo>
         <echo>Ploxo: ${ploxo}</echo>
         <echo>Aztoi: ${otstoi}</echo>
-        <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar">
+        <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
             <arg value="--path" />
             <arg value="C:\projects\test\jenkins\testjenkins\.git" />
             <arg value="--pass" />
