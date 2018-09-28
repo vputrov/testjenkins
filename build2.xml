@@ -5,21 +5,17 @@
       </classpath>
     </taskdef>
     <target name="main">
-        <echo>aniaBURUNDUK201</echo>
-        <echo>aniaBURUNDUK2015</echo>
-        <echo>ganiaBURUNDUK2015</echo>
-        <echo>aniaBURUNDUK2016</echo>
-        <echo>aniaBURUNDUK20156</echo>
-        <copy file="a.txt" tofile="b.txt" verbose="true" />
         <copy file="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" tofile="../mavenproject1.jar" verbose="true" />
         <property name="base.dir" location="." />
         <java dir=".." jar="../mavenproject1.jar" fork="true">
-            <arg value="--path" />
-            <arg value="${base.dir}/.git" />
-            <arg value="--id" />
-            <arg value="C:\users\vsput\.ssh\id_rsa" />
-            <arg value="--pass" />
-            <arg value="aniaBURUNDUK2015" />
+            <arg value="-k" />
+            <arg value="key.txt" />
+            <arg value="-p" />
+            <arg value="pass.txt" />
+            <arg value="-u" />
+            <arg value="git@github.com:vputrov/testjenkins.git" />
+            <arg value="-m" />
+            <arg value="ololo222" />
         </java>
     </target>
 </project>
