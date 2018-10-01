@@ -5,22 +5,238 @@
       </classpath>
     </taskdef>
     <target name="main">
-        <loadfile property="message" srcFile="dududu.txt"/>
-        <loadfile property="aaa" srcFile="a.txt"/>
-        <echo>Kruto: ${kruto}</echo>
-        <echo>Uxuxu: ${uxuxu}</echo>
-        <echo>Super: ${super}</echo>
-        <echo>Ploxo: ${ploxo}</echo>
-        <echo>Aztoi: ${otstoi}</echo>
-        <echo>Message: ${message}</echo>
-        <echo>Aaa: ${aaa}</echo>
-        <java jar="mavenproject1-1.0-SNAPSHOT-jar-with-dependencies.jar" fork="true">
-            <arg value="--path" />
-            <arg value="C:\projects\test\jenkins\testjenkins\.git" />
-            <arg value="--pass1" />
-            <arg value="${kruto}" />
-            <arg value="--pass2" />
-            <arg value="${uxuxu}" />
+        <echo>bugaga</echo>
+        <property name="sdk.publish.folder" value="bbbbbbbbb3" />
+        <property name="sdk.publish.dir" value="C:\\Projects\\Aspose\\cloud-sdk\\SDKs\\NET" />
+        <property name="sdk.publish.url" value="git@rzeszow-scm.dynabic.com:rzeszow/slides/cloud/cloud-sdk-net.git" />
+        <property name="sdk.publish.keyfile" value="key.txt" />
+        <property name="sdk.publish.passfile" value="pass.txt" />
+        <delete dir="${sdk.publish.folder}" />
+        <echo>Deleted temp folder</echo>
+        <java jar="git-publisher.jar" fork="true" failonerror="true">
+            <arg value="c" />
+            <arg value="-k" />
+            <arg value="${sdk.publish.keyfile}" />
+            <arg value="-p" />
+            <arg value="${sdk.publish.passfile}" />
+            <arg value="-d" />
+            <arg value="${sdk.publish.dir}" />
+            <arg value="-t" />
+            <arg value="${sdk.publish.folder}" />
+            <arg value="-u" />
+            <arg value="${sdk.publish.url}" />
         </java>
+        <echo>Cloned and updated sources</echo>
+        <exec dir="${sdk.publish.folder}" executable="git" failonerror="true">
+            <arg value="add" />
+            <arg value="." />
+        </exec>
+        <echo>Added updates to git</echo>
+        <java jar="git-publisher.jar" fork="true" failonerror="true">
+            <arg value="p" />
+            <arg value="-k" />
+            <arg value="${sdk.publish.keyfile}" />
+            <arg value="-p" />
+            <arg value="${sdk.publish.passfile}" />
+            <arg value="-t" />
+            <arg value="${sdk.publish.folder}" />
+            <arg value="-u" />
+            <arg value="${sdk.publish.url}" />
+            <arg value="-m" />
+            <arg value="test automatic push" />
+        </java>
+        <echo>xixixi</echo>
+        <!--antcall target="buildCodegen" />
+        <condition property="sdk.build.target" value="release" else="compile">
+            <istrue value="${global.prepareRelease}" />
+        </condition>
+        <antcall target="sdk.net" />
+        <antcall target="sdk.nodejs" />
+        <antcall target="sdk.php" />
+        <antcall target="sdk.java" />
+        <antcall target="sdk.python" /-->
+    </target>
+    <target name="initialize">
+        <echo>Initializing</echo>
+        <property name="global.path.root" value=".." />
+        <property name="global.path.sdks" value="${global.path.root}/SDKs" />
+        <property name="global.path.codegen" value="${global.path.root}/codegen" />
+        <property name="global.path.codegenSource" value="${global.path.codegen}/aspose-swagger-codegen" />
+        <property name="global.path.codegenTarget" value="${global.path.codegenSource}/target" />
+        <echo>Initialized</echo>
+    </target>
+    <target name="buildCodegen">
+        <echo>Building codegen module</echo>
+        <delete dir="${global.path.codegenTarget}" />
+        <exec dir="${global.path.codegenSource}" executable="cmd" failonerror="true">
+            <arg value="/c" />
+            <arg value="${global.path.maven}/bin/mvn" />
+            <arg value="package" />
+        </exec>
+        <echo>Built codegen module</echo>
+    </target>
+    <target name="sdk.net" if="${sdk.net.active}">
+        <echo>Making SDK for .NET</echo>
+        <antcall target="sdk.generate">
+            <param name="sdk.generate.language" value="NET" />
+            <param name="sdk.generate.moduleName" value="csharp-aspose" />
+        </antcall>
+        <antcall target="sdk.build.net" />
+        <!--antcall target="sdk.publish">
+            <param name="sdk.publish.language" value="NET" />
+        </antcall-->
+        <echo>Made SDK for .NET</echo>
+    </target>
+    <target name="sdk.nodejs" if="${sdk.nodejs.active}">
+        <echo>Making SDK for NodeJS</echo>
+        <antcall target="sdk.generate">
+            <param name="sdk.generate.language" value="NodeJS" />
+            <param name="sdk.generate.moduleName" value="nodejs-aspose" />
+        </antcall>
+        <antcall target="sdk.build.nodejs" />
+        <echo>Made SDK for NodeJS</echo>
+    </target>
+    <target name="sdk.php" if="${sdk.php.active}">
+        <echo>Making SDK for PHP</echo>
+        <antcall target="sdk.generate">
+            <param name="sdk.generate.language" value="PHP" />
+            <param name="sdk.generate.moduleName" value="php-aspose" />
+        </antcall>
+        <antcall target="sdk.build.php" />
+        <echo>Made SDK for PHP</echo>
+    </target>
+    <target name="sdk.java" if="${sdk.java.active}">
+        <echo>Making SDK for Java</echo>
+        <antcall target="sdk.generate">
+            <param name="sdk.generate.language" value="Java" />
+            <param name="sdk.generate.moduleName" value="java-aspose" />
+        </antcall>
+        <antcall target="sdk.build.java" />
+        <echo>Made SDK for Java</echo>
+    </target>
+    <target name="sdk.python" if="${sdk.python.active}">
+        <echo>Making SDK for Python</echo>
+        <antcall target="sdk.generate">
+            <param name="sdk.generate.language" value="Python" />
+            <param name="sdk.generate.moduleName" value="python-aspose" />
+        </antcall>
+        <antcall target="sdk.build.python" />
+        <echo>Made SDK for Python</echo>
+    </target>
+    <target name="sdk.generate">
+        <echo>Generating SDK sources</echo>
+        <property name="sdk.generate.outputPath" value="${global.path.root}/out/swagger/${sdk.generate.language}" />
+        <delete dir="${sdk.generate.outputPath}" />
+        <java failonerror="true" classname="io.swagger.codegen.SwaggerCodegen">
+            <classpath>
+                <pathelement location="${global.path.codegenTarget}/aspose-swagger-codegen-1.0.0.jar" />
+                <pathelement location="${global.path.codegen}/swagger-codegen-cli-2.3.0.jar" />
+            </classpath>
+            <arg value="generate" />
+            <arg value="-l" />
+            <arg value="${sdk.generate.moduleName}" />
+            <arg value="-c" />
+            <arg value="${global.path.codegen}/config.json" />
+            <arg value="-i" />
+            <arg value="${global.path.root}/spec/asposeforcloud_slides.json" />
+            <arg value="-o" />
+            <arg value="${sdk.generate.outputPath}" />
+        </java>
+        <echo>Generated SDK sources</echo>
+    </target>
+    <target name="sdk.build.net">
+        <echo>Executing build for .NET</echo>
+        <exec dir="NET" executable="${global.path.nant}/bin/nant" failonerror="true">
+            <arg value="${sdk.build.target}" />
+            <arg value="-D:global.path.msbuild=${global.path.msbuild}" />
+            <arg value="-D:tests.appSid=${tests.appSid}" />
+            <arg value="-D:tests.appKey=${tests.appKey}" />
+            <arg value="-D:tests.baseUrl=${tests.baseUrl}" />
+        </exec>
+        <echo>Executed build for .NET</echo>
+    </target>
+    <target name="sdk.build.nodejs">
+        <echo>Executing build for NodeJS</echo>
+        <ant antfile="NodeJS/build.xml" target="${sdk.build.target}" inheritAll="false" useNativeBaseDir="true">
+            <property name="tests.appSid" value="${tests.appSid}" />
+            <property name="tests.appKey" value="${tests.appKey}" />
+            <property name="tests.baseUrl" value="${tests.baseUrl}" />
+        </ant>
+        <echo>Executed build for NodeJS</echo>
+    </target>
+    <target name="sdk.build.php">
+        <echo>Executing build for PHP</echo>
+        <ant antfile="PHP/build.xml" target="${sdk.build.target}" inheritAll="false" useNativeBaseDir="true">
+            <property name="tests.appSid" value="${tests.appSid}" />
+            <property name="tests.appKey" value="${tests.appKey}" />
+            <property name="tests.baseUrl" value="${tests.baseUrl}" />
+        </ant>
+        <echo>Executed build for PHP</echo>
+    </target>
+    <target name="sdk.build.java">
+        <echo>Executing build for Java</echo>
+        <ant antfile="Java/build.xml" target="${sdk.build.target}" inheritAll="false" useNativeBaseDir="true">
+            <property name="global.path.maven" value="${global.path.maven}" />
+            <property name="tests.appSid" value="${tests.appSid}" />
+            <property name="tests.appKey" value="${tests.appKey}" />
+            <property name="tests.baseUrl" value="${tests.baseUrl}" />
+        </ant>
+        <echo>Executed build for Java</echo>
+    </target>
+    <target name="sdk.build.python">
+        <echo>Executing build for Python</echo>
+        <ant antfile="Python/build.xml" target="${sdk.build.target}" inheritAll="false" useNativeBaseDir="true">
+            <property name="tests.appSid" value="${tests.appSid}" />
+            <property name="tests.appKey" value="${tests.appKey}" />
+            <property name="tests.baseUrl" value="${tests.baseUrl}" />
+        </ant>
+        <echo>Executed build for Python</echo>
+    </target>
+    <target name="sdk.publish" if="${global.prepareRelease}">
+        <echo>Publishing SDK for ${sdk.publish.language}</echo>
+        <!--copy file="${global.path.root}/spec/asposeforcloud_slides.json" tofile="asposeforcloud_slides.json" />
+        <exec dir="${global.path.root}" executable="git" failonerror="true">
+            <arg value="config" />
+            <arg value="user.email" />
+            <arg value="victor.putrov@aspose.com" />
+        </exec>
+        <exec dir="${global.path.root}" executable="git" failonerror="true">
+            <arg value="config" />
+            <arg value="user.name" />
+            <arg value="Victor Putrov" />
+        </exec>
+        <exec dir="${global.path.root}" executable="git" failonerror="true">
+            <arg value="add" />
+            <arg value="-A" />
+        </exec>
+        <exec dir="${global.path.root}" executable="git" failonerror="true">
+            <arg value="commit" />
+            <arg value="-m" />
+            <arg value="autogenerated sources" />
+        </exec>
+        <exec dir="${global.path.sdks}/NET" executable="git" failonerror="true">
+            <arg value="config" />
+            <arg value="user.email" />
+            <arg value="victor.putrov@aspose.com" />
+        </exec>
+        <exec dir="${global.path.sdks}/NET" executable="git" failonerror="true">
+            <arg value="config" />
+            <arg value="user.name" />
+            <arg value="Victor Putrov" />
+        </exec>
+        <exec dir="${global.path.sdks}/NET" executable="git" failonerror="true">
+            <arg value="checkout" />
+            <arg value="master" />
+        </exec>
+        <exec dir="${global.path.sdks}/NET" executable="git" failonerror="true">
+            <arg value="add" />
+            <arg value="-A" />
+        </exec>
+        <exec dir="${global.path.sdks}/NET" executable="git" failonerror="true">
+            <arg value="commit" />
+            <arg value="-m" />
+            <arg value="autogenerated sources" />
+        </exec-->
+        <echo>Published SDK for ${sdk.publish.language}</echo>
     </target>
 </project>
