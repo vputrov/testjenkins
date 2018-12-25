@@ -8,6 +8,7 @@ if (git status --porcelain) {
 	echo "Configuring..."
 #cd %1
 	$env:DISPLAY = "localhost:0.0"
+	echo $MyInvocation.MyCommand.Path
 	$env:GIT_SSH = "$MyInvocation.MyCommand.Path\git_ssh.sh"
 	$env:SSH_ASKPASS = "$MyInvocation.MyCommand.Path\Askpass.exe"
 	echo $env:SSH_ASKPASS
