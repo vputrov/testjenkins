@@ -8,15 +8,15 @@ if (git status --porcelain) {
 	echo "Configuring..."
 #cd %1
 	$env:DISPLAY = "localhost:0.0"
-	$env:GIT_SSH = "git_ssh.sh"
-	$env:SSH_ASKPASS = "Askpass.exe"
+	$env:GIT_SSH = "$MyInvocation.MyCommand.Path\git_ssh.sh"
+	$env:SSH_ASKPASS = "$MyInvocation.MyCommand.Path\Askpass.exe"
 	echo $env:SSH_ASKPASS
 	echo "Adding..."
 	git add .
 	echo "Committing..."
 	git config user.email "victor.putrov@aspose.com"
 	git config user.name "Victor Putrov"
-	git commit -m "generate SDK sources for v18.11"
+	git commit -m "generate SDK sources for v$v"
 	echo "Pushing..."
 	git push origin HEAD:master
 	echo "Tagging..."
