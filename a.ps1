@@ -9,7 +9,7 @@ if (git status --porcelain) {
 #cd %1
 	SET DISPLAY=localhost:0.0
 	SET GIT_SSH=git_ssh.sh
-	$env:SSH_ASKPASS = Askpass.exe
+	$env:SSH_ASKPASS = "Askpass.exe"
 	echo $env:SSH_ASKPASS
 	echo "Adding..."
 	git add .
