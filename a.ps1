@@ -9,8 +9,8 @@ if (git status --porcelain) {
 #cd %1
 	$env:DISPLAY = "localhost:0.0"
 	echo $PSScriptRoot
-	$env:GIT_SSH = "$MyInvocation.MyCommand.Path\git_ssh.sh"
-	$env:SSH_ASKPASS = "$MyInvocation.MyCommand.Path\Askpass.exe"
+	$env:GIT_SSH = "$PSScriptRoot\git_ssh.sh"
+	$env:SSH_ASKPASS = "$PSScriptRoot\Askpass.exe"
 	echo $env:SSH_ASKPASS
 	echo "Adding..."
 	git add .
