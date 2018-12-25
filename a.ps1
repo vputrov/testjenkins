@@ -10,6 +10,7 @@ if (git status --porcelain) {
 	SET DISPLAY=localhost:0.0
 	SET GIT_SSH=git_ssh.sh
 	SET SSH_ASKPASS=Askpass.exe
+	echo $env:SSH_ASKPASS
 	echo "Adding..."
 	git add .
 	echo "Committing..."
