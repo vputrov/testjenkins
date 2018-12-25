@@ -20,7 +20,7 @@ if (git status --porcelain) {
 	git push origin HEAD:master
 	echo "Tagging..."
 	git tag -a $v -m $v --force
-	git push --tags
+	git push --tags --force
 	echo "Finished."
 } else {
 	echo "No changes. Nothing to push."
